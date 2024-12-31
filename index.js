@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./db'); // Import the connection pool from db.js
 
 const app = express();
-const port = process.env.PORT || 5001; // Use environment variable for port
+const port = process.env.PORT || 5000; // Use environment variable for port
 
 // Route to test database connection
 app.get('/les', async (req, res) => {
