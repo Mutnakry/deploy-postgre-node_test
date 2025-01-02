@@ -7,7 +7,25 @@ const port = process.env.PORT || 5000; // Use environment variable for port
 // Route to test database connection
 app.get('/les', async (req, res) => {
     try {
-        const result = await db.query('SELECT * FROM category'); // Use db.query() here
+        const result = await db.query('SELECT * FROM users'); // Use db.query() here
+        res.json(result.rows); // Return the query result as JSON
+    } catch (err) {
+        res.status(500).json({ error: err.message }); // Return error message as JSON
+    }
+});
+
+app.post('/create', async (req, res) => {
+    const { userId } = req.body; // Extract userId from the request body
+
+    try {
+        // If userId is provided, filter by it; otherwise, fetch all rows
+        const query = userId
+            ? 'SELECT * FROM users WHERE id = $1'
+            : 'SELECT * FROM users';
+        const values = userId ? [userId] : [];
+
+        const result = await db.query(query, values);
+
         res.json(result.rows); // Return the query result as JSON
     } catch (err) {
         res.status(500).json({ error: err.message }); // Return error message as JSON
@@ -15,14 +33,15 @@ app.get('/les', async (req, res) => {
 });
 
 
+
 app.get('/', async (req, res) => {
     const message = 'hello postgre';  // changed variable name to 'message'
     res.send(message);  // send the message to the client
- });
- 
+});
+
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
 
 
