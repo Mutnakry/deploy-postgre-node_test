@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./db'); // Import the connection pool from db.js
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000; // Use environment variable for port
