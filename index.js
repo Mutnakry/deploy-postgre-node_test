@@ -15,22 +15,24 @@ app.get('/les', async (req, res) => {
 });
 
 app.post('/create', async (req, res) => {
-    const { userId } = req.body; // Extract userId from the request body
+    const { username, email } = req.body; // Extract username and email from the request body
 
     try {
-        // If userId is provided, filter by it; otherwise, fetch all rows
-        const query = userId
-            ? 'SELECT * FROM users WHERE id = $1'
-            : 'SELECT * FROM users';
-        const values = userId ? [userId] : [];
+        // Define the SQL query and values to insert into the database
+        const query = 'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *';
+        const values = [username, email];
 
+        // Execute the query
         const result = await db.query(query, values);
 
-        res.json(result.rows); // Return the query result as JSON
+        // Return the newly created user as JSON
+        res.status(201).json(result.rows[0]);
     } catch (err) {
-        res.status(500).json({ error: err.message }); // Return error message as JSON
+        // Return error message as JSON in case of failure
+        res.status(500).json({ error: err.message });
     }
 });
+
 
 
 
