@@ -35,10 +35,49 @@ app.post('/les', async (req, res) => {
 });
 
 
+// app.post('/les', async (req, res) => {
+//     const { username, email } = req.body; // Extract data from the request body
+
+//     try {
+//         const query = 'INSERT INTO users (username, email) VALUES (?, ?)';
+//         const values = [username, email];
+
+//         // Execute the query
+//         const [result] = await db.query(query, values);
+
+//         res.status(201).json({
+//             message: 'User created successfully',
+//             user: { id: result.insertId, username, email } // Use insertId for the new record's ID
+//         });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message }); // Handle errors
+//     }
+// });
+
+
+// app.post('/les', async (req, res) => {
+//     const { username, email } = req.body; // Extract data from the request body
+
+//     try {
+//         const query = 'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *'; // Use $1, $2 for placeholders
+//         const values = [username, email];
+
+//         const result = await db.query(query, values); // Execute the query with values
+
+//         res.status(201).json({
+//             message: 'User created successfully',
+//             user: result.rows[0] // The inserted user data
+//         });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message }); // Handle errors
+//     }
+// });
+
+
 
 
 app.get('/', async (req, res) => {
-    const message = 'hello postgre';  // changed variable name to 'message'
+    const message = 'hello postgre aes';  // changed variable name to 'message'
     res.send(message);  // send the message to the client
 });
 
